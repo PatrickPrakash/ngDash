@@ -1,15 +1,14 @@
 mat-form-field {
-    width: 100%;
-  }
-  
-  .btn-signup {
-    display: flex;
-    justify-content: center;
-    margin-bottom: .5em;
-  }
-  
-  .link-signup {
-      padding-top: .2em;
-  }
-  
-  
+  width: 100%;
+}
+
+.btn-signup {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5em;
+}
+
+.link-signin {
+  text-decoration: none;
+  color: grey;
+}
