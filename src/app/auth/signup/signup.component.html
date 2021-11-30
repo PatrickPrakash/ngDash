@@ -5,7 +5,25 @@
       <form class="auth-form">
         <mat-form-field appearance="fill">
           <mat-label>Email</mat-label>
-          <input type="email" matInput placeholder="Ex . abc@test.com" />
+          <input
+            type="email"
+            matInput
+            placeholder="Ex. abc@test.com"
+            [formControl]="email"
+            [errorStateMatcher]="matcher"
+          />
+          <mat-hint
+            *ngIf="!(email.hasError('email') && email.hasError('required'))"
+            >Email is Valid</mat-hint
+          >
+          <mat-error
+            *ngIf="email.hasError('email') && !email.hasError('required')"
+          >
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="email.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Password</mat-label>
@@ -13,7 +31,15 @@
             type="password"
             matInput
             placeholder="Enter your secure password"
+            [formControl]="password"
+            [errorStateMatcher]="matcher"
           />
+          <mat-error *ngIf="!password.hasError('required')">
+            Password should have 5 characters</mat-error
+          >
+          <mat-error *ngIf="password.hasError('required')"
+            >Password Should not be empty</mat-error
+          >
         </mat-form-field>
 
         <button mat-raised-button color="primary" class="btn-signup">
