@@ -1,3 +1,16 @@
 .main-container {
-  padding: 10em 40em 10em 40em;
+  margin: 2em;
+}
+
+mat-toolbar {
+  width: 100%;
+}
+
+mat-slide-toggle {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.toolbar-space {
+  flex: 1 1 auto;
 }
