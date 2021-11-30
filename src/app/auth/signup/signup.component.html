@@ -9,19 +9,15 @@
             type="email"
             matInput
             placeholder="Ex. abc@test.com"
-            [formControl]="email"
+            [formControl]="emailHolder"
             [errorStateMatcher]="matcher"
           />
-          <mat-hint
-            *ngIf="!(email.hasError('email') && email.hasError('required'))"
-            >Email is Valid</mat-hint
-          >
           <mat-error
-            *ngIf="email.hasError('email') && !email.hasError('required')"
+            *ngIf="emailHolder.hasError('email') && !emailHolder.hasError('required')"
           >
             Please enter a valid email address
           </mat-error>
-          <mat-error *ngIf="email.hasError('required')">
+          <mat-error *ngIf="emailHolder.hasError('required')">
             Email is <strong>required</strong>
           </mat-error>
         </mat-form-field>
@@ -31,18 +27,23 @@
             type="password"
             matInput
             placeholder="Enter your secure password"
-            [formControl]="password"
+            [formControl]="passwordHolder"
             [errorStateMatcher]="matcher"
           />
-          <mat-error *ngIf="!password.hasError('required')">
+          <mat-error *ngIf="!passwordHolder.hasError('required')">
             Password should have 5 characters</mat-error
           >
-          <mat-error *ngIf="password.hasError('required')"
+          <mat-error *ngIf="passwordHolder.hasError('required')"
             >Password Should not be empty</mat-error
           >
         </mat-form-field>
 
-        <button mat-raised-button color="primary" class="btn-signup">
+        <button
+          mat-raised-button
+          color="primary"
+          class="btn-signup"
+          (click)="Submit()"
+        >
           Sign Up
         </button>
         <a
