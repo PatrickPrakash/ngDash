@@ -1,0 +1,30 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AppRoutingModule } from '../app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms'
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+
+
+import { SignupComponent } from './signup/signup.component';
+import { SigninComponent } from './signin/signin.component';
+import { SharedModule } from '../shared/shared.module';
+@NgModule({
+  declarations: [
+    SignupComponent,
+    SigninComponent,
+  ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    AppRoutingModule,
+    ReactiveFormsModule
+  ],
+  exports : [
+    SigninComponent,
+    SignupComponent,
+  ],
+  providers: [
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
+  ]
+})
+export class AuthModule { }
