@@ -35,7 +35,8 @@ export class HttpService {
     //console.log(body.toString());
 
     return this.http.post<any>(this.signUpUrl,authModel,httpOptions).pipe( catchError(err => of(`${err}`)) );
-    }
+    
+  }
 
     
     fileUpload(file: File, token: string)
@@ -46,5 +47,6 @@ export class HttpService {
       return this.http.post<File>(this.fileUploadUrl,file,httpOptions).pipe(catchError(err => of(`${err}`)))
 
     }
+    
   }
 

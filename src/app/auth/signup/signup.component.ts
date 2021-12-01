@@ -34,7 +34,7 @@ export class SignupComponent {
  
 
   Submit(): void {
-    // this.email.invalid ? this.openSnackBar('Email you entered is invalid') : this.password.invalid  ? this.openSnackBar('Password you entered is invalid') :  this.email.invalid && this.password.invalid ? this.openSnackBar('Credentials Invalid') : this.httpService.signUp(this.email.value,this.password.value).subscribe(value => console.log(value));
+    this.emailHolder.invalid ? this.openSnackBar('Email you entered is invalid') : this.passwordHolder.invalid  ? this.openSnackBar('Password you entered is invalid') :  this.emailHolder.invalid && this.passwordHolder.invalid ? this.openSnackBar('Credentials Invalid') : this.openSnackBar('Credentials Valid')
    
     this.authModel!.email = this.emailHolder.value;
     this.authModel!.password = this.passwordHolder.value;
