@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Feature Modules
 import { AuthModule } from './auth/auth.module';
+import { DashModule } from './dash/dash.module';
 
 //Shared Module
 import { SharedModule } from './shared/shared.module';
@@ -20,6 +21,7 @@ import { SharedModule } from './shared/shared.module';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
+    DashModule,
     BrowserAnimationsModule,
     SharedModule,
     HttpClientModule
