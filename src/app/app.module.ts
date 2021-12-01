@@ -13,6 +13,9 @@ import { DashModule } from './dash/dash.module';
 //Shared Module
 import { SharedModule } from './shared/shared.module';
 
+//Services 
+import { HttpService } from './auth/http.service';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -26,7 +29,7 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
