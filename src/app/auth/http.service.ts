@@ -29,13 +29,8 @@ export class HttpService {
 
   signUp(authModel:  any)
   {
-    // let body = new HttpParams();
-    // body.append('email',email)
-    // body.append('password',password);
-    //console.log(body.toString());
-
-    return this.http.post<any>(this.signUpUrl,authModel,httpOptions).pipe( catchError(err => of(`${err}`)) );
     
+    return this.http.post<any>(this.signUpUrl,authModel,httpOptions).pipe( catchError(err => of(`${err}`)) );
   }
 
     
@@ -47,6 +42,6 @@ export class HttpService {
       return this.http.post<File>(this.fileUploadUrl,file,httpOptions).pipe(catchError(err => of(`${err}`)))
 
     }
-    
+
   }
 
