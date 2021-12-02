@@ -5,7 +5,6 @@ import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { MaterialModule } from '../material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 
-import { HttpService } from '../auth/http.service';
 import { DashImageComponent } from './dash-image/dash-image.component';
 
 @NgModule({
@@ -20,6 +19,6 @@ import { DashImageComponent } from './dash-image/dash-image.component';
     HttpClientModule
   ],
   exports: [ImagePreviewComponent,ImageUploadComponent,DashImageComponent],
-  providers: [HttpService]
+  providers: []
 })
 export class DashModule { }

@@ -9,7 +9,6 @@ import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { SharedModule } from '../shared/shared.module';
 
-import { HttpService } from './http.service';
 
 @NgModule({
   declarations: [
@@ -28,8 +27,7 @@ import { HttpService } from './http.service';
     SignupComponent,
   ],
   providers: [
-    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher,},
-    {provide: HttpService}
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher,}
   ]
 })
 export class AuthModule { }
