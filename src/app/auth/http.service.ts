@@ -8,7 +8,7 @@ import { catchError, retry } from 'rxjs';
 
 let httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
+    'Content-Type':  'application/x-www-form-urlencoded',
   })
 };
 

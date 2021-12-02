@@ -39,7 +39,7 @@ export class SignupComponent {
     this.authModel!.email = this.emailHolder.value;
     this.authModel!.password = this.passwordHolder.value;
 
-   this.httpService.signUp(this.authModel).subscribe(res => console.log("Response"+res));
+    this.httpService.signUp(this.authModel).subscribe(res => console.log("Response"+res));
     
   }
 
