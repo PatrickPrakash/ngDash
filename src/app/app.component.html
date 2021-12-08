@@ -1,2 +1,13 @@
-<h1>Hello</h1>
-<router-outlet></router-outlet>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>ngDash</span>
+      <span class="toolbar-space"></span>
+      <mat-slide-toggle>
+        <mat-icon>dark_mode</mat-icon>
+      </mat-slide-toggle>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  
+  <div class="main-container">
+    <router-outlet></router-outlet>
+  </div>
