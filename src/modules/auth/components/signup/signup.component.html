@@ -1,62 +1,50 @@
-<div class="container mat-app-background">
-    <mat-card class="auth-card">
-      <mat-card-title>Sign Up</mat-card-title>
-      <mat-card-content>
-        <form class="auth-form">
-          <mat-form-field appearance="fill">
-            <mat-label>Email</mat-label>
-            <input
-              type="email"
-              matInput
-              placeholder="Ex. abc@test.com"
-              [formControl]="emailHolder"
-              [errorStateMatcher]="matcher"
-            />
-            <mat-error
-              *ngIf="emailHolder.hasError('email') && !emailHolder.hasError('required')"
-            >
-              Please enter a valid email address
-            </mat-error>
-            <mat-error *ngIf="emailHolder.hasError('required')">
-              Email is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Password</mat-label>
-            <input
-              type="password"
-              matInput
-              placeholder="Enter your secure password"
-              [formControl]="passwordHolder"
-              [errorStateMatcher]="matcher"
-            />
-            <mat-error *ngIf="!passwordHolder.hasError('required')">
-              Password should have 5 characters</mat-error
-            >
-            <mat-error *ngIf="passwordHolder.hasError('required')"
-              >Password Should not be empty</mat-error
-            >
-          </mat-form-field>
-  
-          <button
-            mat-raised-button
-            color="primary"
-            class="btn-signup"
-            (click)="Submit()"
-          >
-            Sign Up
-          </button>
-          <a
-            routerLink="/signin"
-            class="link-signin"
-            routerLinkActive="router-link-active"
-            >Already registered? Click here</a
-          >
-        </form>
-      </mat-card-content>
-      <mat-card-footer>
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-      </mat-card-footer>
-    </mat-card>
-  </div>
-  
+<mat-card>
+  <mat-card-title> Sign Up </mat-card-title>
+
+  <mat-card-content>
+    <form [formGroup]="signUpForm" (ngSubmit)="Submit()">
+      <!-- Email Section -->
+
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input
+          type="email"
+          matInput
+          formControlName="email"
+          placeholder="Enter your Email"
+        />
+        <mat-error *ngIf="errorHandling('email', 'required')">
+          Email is <strong>required</strong>
+        </mat-error>
+        <mat-error
+          *ngIf="
+            errorHandling('email', 'email') &&
+            !errorHandling('email', 'required')
+          "
+        >
+          Please enter a <strong>valid</strong> email address
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Password Section -->
+
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input
+          type="password"
+          matInput
+          formControlName="password"
+          placeholder="Enter your Email"
+        />
+        <mat-error *ngIf="errorHandling('password', 'required')">
+          Password is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="!errorHandling('password', 'required')">
+          Passwor <strong>should</strong> have minimum 5 characters
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">Sign Up</button>
+    </form>
+  </mat-card-content>
+</mat-card>

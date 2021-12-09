@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from '../../shared/my-error-state-matcher';
 MyErrorStateMatcher;
 
@@ -9,17 +9,23 @@ MyErrorStateMatcher;
   styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent implements OnInit {
-  constructor() {}
+  constructor(private fb: FormBuilder) {}
 
-  emailHolder = new FormControl('', [Validators.required, Validators.email]);
-  passwordHolder = new FormControl('', [
-    Validators.required,
-    Validators.minLength(5),
-  ]);
+  signInForm = this.fb.group({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(5),
+    ]),
+  });
 
-  matcher = new MyErrorStateMatcher();
+  public errorHandling = (control: string, error: string) => {
+    return this.signInForm?.controls[control].hasError(error);
+  };
 
   ngOnInit(): void {}
 
-  Submit() {}
+  Submit() {
+    
+  }
 }

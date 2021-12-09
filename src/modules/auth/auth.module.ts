@@ -6,6 +6,10 @@ import { SignupComponent } from './components/signup/signup.component';
 import { MaterialModule } from '../shared/modules/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
+import { CoreModule } from '../core/core.module';
+import { HttpErrorHandlerService } from '../core/services/http-error-handler.service';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastService } from '../core/services/toast.service';
 @NgModule({
   declarations: [SigninComponent, SignupComponent],
   imports: [
@@ -13,7 +17,9 @@ import { AuthService } from './services/auth.service';
     AuthRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
+    CoreModule,
+    HttpClientModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, HttpErrorHandlerService, ToastService],
 })
 export class AuthModule {}
