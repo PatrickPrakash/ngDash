@@ -46,16 +46,16 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    let authToken = localStorage.getItem('access_token');
+    let authToken = sessionStorage.getItem('access_token');
     return authToken !== null ? true : false;
   }
 
   getToken() {
-    return localStorage.getItem('access_token');
+    return sessionStorage.getItem('access_token');
   }
 
   logOut() {
-    let removeToken = localStorage.removeItem('access_token');
+    let removeToken = sessionStorage.removeItem('access_token');
     if (removeToken == null) {
       this.router.navigate(['/signin']);
     }

@@ -31,7 +31,10 @@ export class SigninComponent implements OnInit {
     return this.signInForm?.controls[control].hasError(error);
   };
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    //Logging any existing token
+    console.log(this.authService.getToken());
+  }
 
   Submit() {
     if (this.signInForm.valid) {
@@ -46,7 +49,7 @@ export class SigninComponent implements OnInit {
             this.toastService.openSnackBar('Signed In failed');
           } else {
             this.toastService.openSnackBar('Signed In Successfully');
-            localStorage.setItem('access_token', value.token);
+            sessionStorage.setItem('access_token', value.token);
             console.log(value.token);
             this.router.navigateByUrl('/dashboard');
           }
