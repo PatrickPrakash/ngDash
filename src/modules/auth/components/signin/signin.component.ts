@@ -36,7 +36,7 @@ export class SigninComponent implements OnInit {
   Submit() {
     if (this.signInForm.valid) {
       this.authService.signIn(this.signInForm.value).subscribe({
-        next: (value) => {
+        next: (value: any) => {
           console.log(value);
           if (
             (value.email == '' && value.password == '') ||
@@ -46,6 +46,8 @@ export class SigninComponent implements OnInit {
             this.toastService.openSnackBar('Signed In failed');
           } else {
             this.toastService.openSnackBar('Signed In Successfully');
+            localStorage.setItem('access_token', value.token);
+            console.log(value.token);
             this.router.navigateByUrl('/dashboard');
           }
         },
