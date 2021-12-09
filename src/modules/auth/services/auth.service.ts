@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError, Observable } from 'rxjs';
 import {
   HandleError,
@@ -22,16 +23,41 @@ export class AuthService {
   private handleError: HandleError;
   constructor(
     private http: HttpClient,
-    private httpErrorHandler: HttpErrorHandlerService
+    private httpErrorHandler: HttpErrorHandlerService,
+    private router: Router
   ) {
     this.handleError = this.httpErrorHandler.createHandleError('AuthHandler');
   }
 
-  /* SIGNUP: Send the post request for signup auth */
+  /** SIGNUP: Post request function for signup auth */
 
   signUp(userModel: user): Observable<user> {
     return this.http
       .post<user>(`${this.apiendpoint}/signup`, userModel, httpOptions)
       .pipe(catchError(this.handleError('signup', userModel)));
+  }
+
+  /** SIGNIN: Post request function for signin auth */
+
+  signIn(userModel: user): Observable<user> {
+    return this.http
+      .post<user>(`${this.apiendpoint}/signin`, userModel, httpOptions)
+      .pipe(catchError(this.handleError('signin', userModel)));
+  }
+
+  isLoggedIn(): boolean {
+    let authToken = localStorage.getItem('access_token');
+    return authToken !== null ? true : false;
+  }
+
+  getToken() {
+    return localStorage.getItem('access_token');
+  }
+
+  logOut() {
+    let removeToken = localStorage.removeItem('access_token');
+    if (removeToken == null) {
+      this.router.navigate(['/signin']);
+    }
   }
 }

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastService } from 'src/modules/core/services/toast.service';
+import { AuthService } from '../../services/auth.service';
 import { MyErrorStateMatcher } from '../../shared/my-error-state-matcher';
 MyErrorStateMatcher;
 
@@ -9,7 +12,12 @@ MyErrorStateMatcher;
   styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent implements OnInit {
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private toastService: ToastService,
+    private router: Router
+  ) {}
 
   signInForm = this.fb.group({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -26,6 +34,28 @@ export class SigninComponent implements OnInit {
   ngOnInit(): void {}
 
   Submit() {
-    
+    if (this.signInForm.valid) {
+      this.authService.signIn(this.signInForm.value).subscribe({
+        next: (value) => {
+          console.log(value);
+          if (
+            (value.email == '' && value.password == '') ||
+            value.email == '' ||
+            value.password == ''
+          ) {
+            this.toastService.openSnackBar('Signed In failed');
+          } else {
+            this.toastService.openSnackBar('Signed In Successfully');
+            this.router.navigateByUrl('/dashboard');
+          }
+        },
+        error: (err) => {
+          console.warn(err);
+          this.toastService.openSnackBar(
+            'Login failed - Unexpected error occured'
+          );
+        },
+      });
+    }
   }
 }
