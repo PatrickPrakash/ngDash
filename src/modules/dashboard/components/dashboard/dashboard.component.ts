@@ -4,14 +4,14 @@ import { AuthService } from 'src/modules/auth/services/auth.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
+  constructor(private authService: AuthService) {}
 
-  constructor(private authService : AuthService) { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    
+  logOut() {
+    this.authService.logOut();
   }
-
 }
