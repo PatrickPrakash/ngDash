@@ -18,8 +18,8 @@ export class DashImageUploadComponent implements OnInit {
   uploadFile(): void {
     let file: File = this.selectedFiles[0];
     this.fileUploadService.uploadImage(file).subscribe({
-      next: (value) => {
-        console.log('Next value ' + value);
+      next: (body) => {
+        console.log('The URL' + body);
       },
       error: (err) => {
         console.log(err);
