@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { FileUploadService } from '../../services/file-upload.service';
 @Component({
   selector: 'app-dash-image-upload',
   templateUrl: './dash-image-upload.component.html',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashImageUploadComponent implements OnInit {
   selectedFiles: any;
-  constructor() {}
+  constructor(private fileUploadService: FileUploadService) {}
 
   ngOnInit(): void {}
 
@@ -16,8 +16,17 @@ export class DashImageUploadComponent implements OnInit {
   }
 
   uploadFile(): void {
-    let file = this.selectedFiles[0];
-    let token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjYXZsaSIsInN1YiI6IjYxYTYxNmVlNjUxMzNlMDAxOGQzYzUwMyIsImlhdCI6MTYzODM0OTcxMjM2MiwiZXhwIjoxNjM4NDM2MTEyMzYyfQ.BemaM1106lZSNXBy9OqTORm9jW-aIgcipkg5GlUJ4t0';
+    let file: File = this.selectedFiles[0];
+    this.fileUploadService.uploadImage(file).subscribe({
+      next: (value) => {
+        console.log('Next value ' + value);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log('Completed');
+      },
+    });
   }
 }
