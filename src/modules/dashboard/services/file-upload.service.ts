@@ -37,8 +37,10 @@ export class FileUploadService {
       responseType: 'text',
     });
 
-    return this.httpClient
-      .request(req)
-      .pipe(catchError(this.handleError('FileUpload', file)));
+    return this.httpClient.post(this.APIENDPOINT, formData, {
+      observe: 'body',
+      responseType: 'text',
+      reportProgress: true,
+    });
   }
 }
