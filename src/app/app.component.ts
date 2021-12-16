@@ -1,14 +1,5 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  Renderer2,
-  ViewChild,
-} from '@angular/core';
-import {
-  MatSlideToggle,
-  MatSlideToggleChange,
-} from '@angular/material/slide-toggle';
+import { Component, Renderer2, ViewChild } from '@angular/core';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-root',
@@ -25,8 +16,10 @@ export class AppComponent {
     this.isChecked = event.checked;
     if (this.isChecked) {
       this.renderer.addClass(this.parent.nativeElement, 'dark-theme');
+      this.renderer.addClass(document.body, 'dark-background');
     } else {
       this.renderer.removeClass(this.parent.nativeElement, 'dark-theme');
+      this.renderer.removeClass(document.body, 'dark-background');
     }
   }
 }

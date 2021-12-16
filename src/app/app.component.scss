@@ -1,17 +1,19 @@
 .main-container {
-    margin: 2em;
-  }
-  
-  mat-toolbar {
-    width: 100%;
-  }
-  
-  mat-slide-toggle {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .toolbar-space {
-    flex: 1 1 auto;
-  }
-  
+  margin: 2em;
+}
+
+mat-toolbar {
+  width: 100%;
+}
+
+mat-slide-toggle {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.toolbar-space {
+  flex: 1 1 auto;
+}
+.dark-background {
+  background: #303030;
+}

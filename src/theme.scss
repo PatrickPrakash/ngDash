@@ -15,14 +15,30 @@ $light-theme: mat.define-light-theme(
 );
 
 //Define a dark theme
-$dark-primary: mat.define-palette(mat.$pink-palette);
+$dark-primary: mat.define-palette(mat.$indigo-palette);
 $dark-accent: mat.define-palette(mat.$blue-gray-palette);
+$dark-background: #303030;
 $dark-theme: mat.define-dark-theme(
   (
     color: (
       primary: $dark-primary,
       accent: $dark-accent,
     ),
+  )
+);
+
+// Change the entire app background
+$background: map-get($dark-theme, background);
+$background: map_merge(
+  $background,
+  (
+    background: $dark-background,
+  )
+);
+$dark-theme: map_merge(
+  $dark-theme,
+  (
+    background: $background,
   )
 );
 
