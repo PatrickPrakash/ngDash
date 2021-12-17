@@ -9,9 +9,15 @@ import { AuthService } from 'src/modules/auth/services/auth.service';
 export class DashboardComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
+  imageUrl: string = '';
+
   ngOnInit(): void {}
 
   logOut() {
     this.authService.logOut();
+  }
+
+  getSetImage(event: string): void {
+    this.imageUrl = event;
   }
 }
