@@ -9,6 +9,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 export class AppComponent {
   constructor(private renderer: Renderer2) {}
   isChecked: boolean = false;
+  whichMode: string = 'light_mode';
 
   @ViewChild('parent') parent: any;
 
@@ -17,9 +18,11 @@ export class AppComponent {
     if (this.isChecked) {
       this.renderer.addClass(this.parent.nativeElement, 'dark-theme');
       this.renderer.addClass(document.body, 'dark-background');
+      this.whichMode = 'dark_mode';
     } else {
       this.renderer.removeClass(this.parent.nativeElement, 'dark-theme');
       this.renderer.removeClass(document.body, 'dark-background');
+      this.whichMode = 'light_mode';
     }
   }
 }
