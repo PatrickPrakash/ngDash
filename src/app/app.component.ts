@@ -7,7 +7,6 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-
   constructor(private renderer: Renderer2) {}
   isChecked: boolean = false;
   whichMode: string = 'light_mode';
@@ -26,5 +25,4 @@ export class AppComponent {
       this.whichMode = 'light_mode';
     }
   }
-
 }

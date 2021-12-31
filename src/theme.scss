@@ -2,7 +2,6 @@
 
 @include mat.core();
 
-
 //Define a light theme
 $light-primary: mat.define-palette(mat.$indigo-palette);
 $light-accent: mat.define-palette(mat.$pink-palette);
@@ -11,11 +10,9 @@ $light-theme: mat.define-light-theme(
     color: (
       primary: $light-primary,
       accent: $light-accent,
-
     ),
   )
 );
-
 
 //Define a dark theme
 $dark-primary: mat.define-palette(mat.$indigo-palette);
@@ -29,7 +26,6 @@ $dark-theme: mat.define-dark-theme(
     ),
   )
 );
-
 
 // Change the entire app background
 $background: map-get($dark-theme, background);
@@ -55,4 +51,3 @@ $dark-theme: map_merge(
 
 @include mat.core-theme($light-theme);
 @include mat.all-component-themes($light-theme);
-

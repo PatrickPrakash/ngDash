@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { Router, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/modules/core/guards/auth.guard';
 import { ToastService } from 'src/modules/core/services/toast.service';
@@ -18,7 +17,6 @@ const routes: Routes = [
       ),
     canActivate: [AuthGuard],
   },
-
 ];
 
 @NgModule({
