@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.prod';
 import {
   HandleError,
   HttpErrorHandlerService,
@@ -19,7 +20,6 @@ const httpOptions = {
 })
 export class AuthService {
   //Variables
-  apiendpoint = 'https://serene-hollows-11661.herokuapp.com/api/v1';
   private handleError: HandleError;
   constructor(
     private http: HttpClient,
@@ -33,7 +33,7 @@ export class AuthService {
 
   signUp(userModel: user): Observable<user> {
     return this.http
-      .post<user>(`${this.apiendpoint}/signup`, userModel, httpOptions)
+      .post<user>(`${environment.apiendpoint}/signup`, userModel, httpOptions)
       .pipe(catchError(this.handleError('signup', userModel)));
   }
 
@@ -41,7 +41,7 @@ export class AuthService {
 
   signIn(userModel: user): Observable<user> {
     return this.http
-      .post<user>(`${this.apiendpoint}/signin`, userModel, httpOptions)
+      .post<user>(`${environment.apiendpoint}/signin`, userModel, httpOptions)
       .pipe(catchError(this.handleError('signin', userModel)));
   }
 
