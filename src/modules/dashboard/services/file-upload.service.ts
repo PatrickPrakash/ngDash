@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.prod';
 import {
   HandleError,
   HttpErrorHandlerService,
@@ -17,7 +18,6 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class FileUploadService {
-  APIENDPOINT = 'https://ngdash-server.herokuapp.com/upload';
   private handleError: HandleError;
 
   constructor(
@@ -32,12 +32,12 @@ export class FileUploadService {
     let formData = new FormData();
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', this.APIENDPOINT, formData, {
+    const req = new HttpRequest('POST', environment.APIENDPOINT, formData, {
       reportProgress: true,
       responseType: 'text',
     });
 
-    return this.httpClient.post(this.APIENDPOINT, formData, {
+    return this.httpClient.post(environment.APIENDPOINT, formData, {
       observe: 'body',
       responseType: 'text',
       reportProgress: true,
