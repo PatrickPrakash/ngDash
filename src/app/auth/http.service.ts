@@ -29,11 +29,11 @@ export class HttpService {
 
   signUp(authModel:  any)
   {
-    
+
     return this.http.post<any>(this.signUpUrl,authModel,httpOptions).pipe( catchError(err => of(`${err}`)) );
   }
 
-    
+
     fileUpload(file: File, token: string)
     {
 
@@ -44,4 +44,3 @@ export class HttpService {
     }
 
   }
-

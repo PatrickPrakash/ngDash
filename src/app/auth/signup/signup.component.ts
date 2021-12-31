@@ -31,16 +31,16 @@ export class SignupComponent {
 
   matcher = new MyErrorStateMatcher();
 
- 
+
 
   Submit(): void {
     this.emailHolder.invalid ? this.openSnackBar('Email you entered is invalid') : this.passwordHolder.invalid  ? this.openSnackBar('Password you entered is invalid') :  this.emailHolder.invalid && this.passwordHolder.invalid ? this.openSnackBar('Credentials Invalid') : this.openSnackBar('Credentials Valid')
-   
+
     this.authModel!.email = this.emailHolder.value;
     this.authModel!.password = this.passwordHolder.value;
 
     this.httpService.signUp(this.authModel).subscribe(res => console.log("Response"+res));
-    
+
   }
 
   openSnackBar(message: string)

@@ -55,4 +55,3 @@ $dark-theme: map_merge(
 
 @include mat.core-theme($light-theme);
 @include mat.all-component-themes($light-theme);
-
