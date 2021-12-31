@@ -6,30 +6,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-//Feature Modules
-import { AuthModule } from './auth/auth.module';
-import { DashModule } from './dash/dash.module';
+import { AuthModule } from 'src/modules/auth/auth.module';
+import { DashboardModule } from 'src/modules/dashboard/dashboard.module';
+import { MaterialModule } from 'src/modules/shared/modules/material/material.module';
+import { CoreModule } from 'src/modules/core/core.module';
 
-//Shared Module
-import { SharedModule } from './shared/shared.module';
-
-//Services 
-import { HttpService } from './auth/http.service';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AuthModule,
-    DashModule,
     BrowserAnimationsModule,
-    SharedModule,
-    HttpClientModule
+    AuthModule,
+    DashboardModule,
+    MaterialModule,
+    CoreModule,
   ],
-  providers: [HttpService],
-  bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [AppComponent],
+
 })
-export class AppModule { }
+export class AppModule {}

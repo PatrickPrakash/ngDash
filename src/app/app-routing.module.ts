@@ -1,17 +1,29 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { SignupComponent } from './auth/signup/signup.component';
-import { SigninComponent } from './auth/signin/signin.component';
-import { DashImageComponent } from './dash/dash-image/dash-image.component';
+
+import { Router, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from 'src/modules/core/guards/auth.guard';
+import { ToastService } from 'src/modules/core/services/toast.service';
+
 const routes: Routes = [
-  { path: 'signup' , component: SignupComponent },
-  { path: 'signin' , component: SigninComponent  },
-  {path: 'dashboard', component: DashImageComponent},
-  {path: '', redirectTo: '/signin', pathMatch: 'full'},
+  {
+    path: '',
+    loadChildren: () =>
+      import('src/modules/auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('src/modules/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
+      ),
+    canActivate: [AuthGuard],
+  },
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard, ToastService],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
