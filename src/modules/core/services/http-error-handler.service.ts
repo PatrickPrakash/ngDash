@@ -37,7 +37,6 @@ export class HttpErrorHandlerService {
           ? error.error.message
           : `server returned code ${error.status} with body "${error.error}"`;
 
-      console.log(message);
 
       return of(result);
     };

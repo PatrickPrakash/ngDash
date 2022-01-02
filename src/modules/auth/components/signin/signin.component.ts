@@ -40,7 +40,6 @@ export class SigninComponent implements OnInit {
     if (this.signInForm.valid) {
       this.authService.signIn(this.signInForm.value).subscribe({
         next: (value: any) => {
-          console.log(value);
           if (
             (value.email == '' && value.password == '') ||
             value.email == '' ||
@@ -50,7 +49,6 @@ export class SigninComponent implements OnInit {
           } else {
             this.toastService.openSnackBar('Signed In Successfully');
             sessionStorage.setItem('access_token', value.token);
-            console.log(value.token);
             this.router.navigateByUrl('/dashboard');
           }
         },
