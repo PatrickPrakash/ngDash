@@ -3,8 +3,6 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/modules/core/services/toast.service';
 import { AuthService } from '../../services/auth.service';
-import { MyErrorStateMatcher } from '../../shared/my-error-state-matcher';
-MyErrorStateMatcher;
 
 @Component({
   selector: 'app-signin',
@@ -20,7 +18,12 @@ export class SigninComponent implements OnInit {
   ) {}
 
   signInForm = this.fb.group({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.pattern(
+        '^[a-zA-Z0-9.]+@[a-zA-Z0-9]+(-)?[a-zA-Z0-9]+(.)?[a-zA-Z0-9]{2,6}?.[a-zA-Z]{2,6}$'
+      ),
+    ]),
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(5),
