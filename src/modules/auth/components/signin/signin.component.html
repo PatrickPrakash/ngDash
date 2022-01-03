@@ -18,7 +18,7 @@
         </mat-error>
         <mat-error
           *ngIf="
-            errorHandling('email', 'email') &&
+            errorHandling('email', 'pattern') &&
             !errorHandling('email', 'required')
           "
         >
