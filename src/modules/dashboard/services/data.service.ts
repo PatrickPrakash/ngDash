@@ -13,12 +13,7 @@ export class DataService {
   setImage(imageUrl: string): void {
     this.$getImageUrl.next(imageUrl);
     this.$getImageUrl.subscribe();
-    // console.log('image url', this.imageUrl);
   }
-
-  // getImage(): string {
-  //   return this.imageUrl;
-  // }
 
   getImage(): string {
     return this.$getImageUrl.getValue();

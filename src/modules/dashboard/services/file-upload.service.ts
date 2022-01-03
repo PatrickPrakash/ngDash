@@ -20,11 +20,6 @@ export class FileUploadService {
     let formData = new FormData();
     formData.append('file', file);
 
-    const req = new HttpRequest('POST', environment.APIENDPOINT, formData, {
-      reportProgress: true,
-      responseType: 'text',
-    });
-
     return this.httpClient.post(environment.APIENDPOINT, formData, {
       observe: 'body',
       responseType: 'text',
