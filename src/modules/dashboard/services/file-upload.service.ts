@@ -2,10 +2,6 @@ import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import {
-  HandleError,
-  HttpErrorHandlerService,
-} from 'src/modules/core/services/http-error-handler.service';
 import { fileModel } from '../models/fileModel';
 
 const httpOptions = {
@@ -18,15 +14,7 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class FileUploadService {
-  private handleError: HandleError;
-
-  constructor(
-    private httpClient: HttpClient,
-    private httpErrorHandler: HttpErrorHandlerService
-  ) {
-    this.handleError =
-      this.httpErrorHandler.createHandleError('FileUploadHandler');
-  }
+  constructor(private httpClient: HttpClient) {}
 
   uploadImage(file: File): Observable<any> {
     let formData = new FormData();

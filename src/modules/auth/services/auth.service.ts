@@ -3,10 +3,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import {
-  HandleError,
-  HttpErrorHandlerService,
-} from 'src/modules/core/services/http-error-handler.service';
 import { user } from '../models/user';
 
 const httpOptions = {
@@ -20,29 +16,26 @@ const httpOptions = {
 })
 export class AuthService {
   //Variables
-  private handleError: HandleError;
-  constructor(
-    private http: HttpClient,
-    private httpErrorHandler: HttpErrorHandlerService,
-    private router: Router
-  ) {
-    this.handleError = this.httpErrorHandler.createHandleError('AuthHandler');
-  }
+  constructor(private http: HttpClient, private router: Router) {}
 
   /** SIGNUP: Post request function for signup auth */
 
   signUp(userModel: user): Observable<user> {
-    return this.http
-      .post<user>(`${environment.apiendpoint}/signup`, userModel, httpOptions)
-      .pipe(catchError(this.handleError('signup', userModel)));
+    return this.http.post<user>(
+      `${environment.apiendpoint}/signup`,
+      userModel,
+      httpOptions
+    );
   }
 
   /** SIGNIN: Post request function for signin auth */
 
   signIn(userModel: user): Observable<user> {
-    return this.http
-      .post<user>(`${environment.apiendpoint}/signin`, userModel, httpOptions)
-      .pipe(catchError(this.handleError('signin', userModel)));
+    return this.http.post<user>(
+      `${environment.apiendpoint}/signin`,
+      userModel,
+      httpOptions
+    );
   }
 
   isLoggedIn(): boolean {
