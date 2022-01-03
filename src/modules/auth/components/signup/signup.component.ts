@@ -45,7 +45,7 @@ export class SignupComponent implements OnInit {
             value.email == '' ||
             value.password == ''
           ) {
-            this.toastService.openSnackBar('Signed Up failed');
+            this.toastService.openSnackBar('Enter valid credentials!');
           } else {
             this.toastService.openSnackBar('Signed Up Successfully');
             this.router.navigateByUrl('/signin');

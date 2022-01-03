@@ -45,7 +45,7 @@ export class SigninComponent implements OnInit {
             value.email == '' ||
             value.password == ''
           ) {
-            this.toastService.openSnackBar('Signed In failed');
+            this.toastService.openSnackBar('Enter valid Credentials!');
           } else {
             this.toastService.openSnackBar('Signed In Successfully');
             sessionStorage.setItem('access_token', value.token);
@@ -54,9 +54,6 @@ export class SigninComponent implements OnInit {
         },
         error: (err) => {
           console.warn(err);
-          this.toastService.openSnackBar(
-            'Login failed - Unexpected error occured'
-          );
         },
       });
     }
