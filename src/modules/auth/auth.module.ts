@@ -8,8 +8,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { CoreModule } from '../core/core.module';
 import { HttpErrorHandlerService } from '../core/services/http-error-handler.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastService } from '../core/services/toast.service';
+import { CommonHttpErrorInterceptor } from '../core/interceptors/common-http-error.interceptor';
 @NgModule({
   declarations: [SigninComponent, SignupComponent],
   imports: [
@@ -20,6 +21,15 @@ import { ToastService } from '../core/services/toast.service';
     CoreModule,
     HttpClientModule,
   ],
-  providers: [AuthService, HttpErrorHandlerService, ToastService],
+  providers: [
+    AuthService,
+    HttpErrorHandlerService,
+    ToastService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CommonHttpErrorInterceptor,
+      multi: true,
+    },
+  ],
 })
 export class AuthModule {}
