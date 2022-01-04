@@ -1,6 +1,12 @@
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpEvent,
+  HttpEventType,
+  HttpHeaders,
+  HttpRequest,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable } from 'rxjs';
+import { catchError, map, tap, Observable, last, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { fileModel } from '../models/fileModel';
 
@@ -16,14 +22,20 @@ const httpOptions = {
 export class FileUploadService {
   constructor(private httpClient: HttpClient) {}
 
+  fileUploadProgress: any;
+
+  getUploadProgress(): number {
+    return this.fileUploadProgress;
+  }
+
   uploadImage(file: File): Observable<any> {
     let formData = new FormData();
     formData.append('file', file);
 
     return this.httpClient.post(environment.APIENDPOINT, formData, {
-      observe: 'body',
-      responseType: 'text',
       reportProgress: true,
+      responseType: 'text',
+      observe: 'events',
     });
   }
 }
