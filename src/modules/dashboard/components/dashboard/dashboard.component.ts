@@ -10,6 +10,7 @@ export class DashboardComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   imageUrl: string = '';
+  progressBarValue = 0;
 
   ngOnInit(): void {}
 
@@ -19,5 +20,10 @@ export class DashboardComponent implements OnInit {
 
   getSetImage(event: string): void {
     this.imageUrl = event;
+  }
+
+  setProgress(progressNumber: number): void {
+    this.progressBarValue = progressNumber;
+    console.log('Progress Bar Value' + this.progressBarValue);
   }
 }

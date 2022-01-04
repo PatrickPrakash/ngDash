@@ -4,4 +4,8 @@
     <mat-card-subtitle>The preview of the image you uploaded</mat-card-subtitle>
   </mat-card-header>
   <img mat-card-image [src]="imageUrl" alt="" />
+  <mat-progress-bar
+    mode="determinate"
+    [value]="progressBarValue"
+  ></mat-progress-bar>
 </mat-card>

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FileUploadService } from '../../services/file-upload.service';
 
 @Component({
   selector: 'app-dash-image-preview',
@@ -10,6 +11,9 @@ export class DashImagePreviewComponent implements OnInit {
 
   @Input()
   imageUrl: string = '';
+
+  @Input()
+  progressBarValue: number = 0;
 
   ngOnInit(): void {}
 }

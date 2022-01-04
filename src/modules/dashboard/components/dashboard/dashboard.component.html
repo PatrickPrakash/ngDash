@@ -1,3 +1,9 @@
-<app-dash-image-preview [imageUrl]="imageUrl"></app-dash-image-preview>
-<app-dash-image-upload (getImage)="getSetImage($event)"></app-dash-image-upload>
+<app-dash-image-preview
+  [imageUrl]="imageUrl"
+  [progressBarValue]="progressBarValue"
+></app-dash-image-preview>
+<app-dash-image-upload
+  (getImage)="getSetImage($event)"
+  (getProgress)="setProgress($event)"
+></app-dash-image-upload>
 <button mat-stroked-button color="primary" (click)="logOut()">Log Out</button>
