@@ -39,7 +39,6 @@ export class DashImageUploadComponent implements OnInit {
         }
         if (event.type === HttpEventType.UploadProgress) {
           const percentDone = Math.round((100 * event.loaded) / event.total);
-          console.log('Progress ' + percentDone + '%');
           this.getProgress.emit(percentDone);
         }
       },
@@ -47,7 +46,6 @@ export class DashImageUploadComponent implements OnInit {
         console.log(err);
       },
       complete: () => {
-        console.log('Completed');
         this.dataService.setImage(this.imageUrl);
         this.getImage.emit(this.imageUrl);
       },
