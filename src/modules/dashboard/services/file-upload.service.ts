@@ -1,14 +1,7 @@
-import {
-  HttpClient,
-  HttpEvent,
-  HttpEventType,
-  HttpHeaders,
-  HttpRequest,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, tap, Observable, last, of, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
-import { fileModel } from '../models/fileModel';
 
 const httpOptions = {
   headers: new HttpHeaders({
