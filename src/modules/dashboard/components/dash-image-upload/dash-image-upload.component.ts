@@ -61,7 +61,7 @@ export class DashImageUploadComponent implements OnInit {
         },
       });
     } else {
-      this.toastService.openSnackBar('This is File is not acceptable');
+      this.toastService.openSnackBar('This is file is not acceptable');
     }
   }
 }
