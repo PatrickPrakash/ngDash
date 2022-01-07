@@ -61,3 +61,23 @@
     Add
   </button>
 </div>
+<hr class="text-slate-400 w-3/12 mt-3" />
+
+<div class="flex mt-3">
+  <p class="font-bold ml-2">Zone</p>
+  <p class="font-bold ml-24">Price/MB</p>
+</div>
+<hr class="w-3/12 mt-3 border h-1 border-gray-200 bg-gray-200" />
+<div
+  class="w-3/12"
+  *ngFor="let zoneValue of zoneDetails; even as even"
+  [style.background-color]="even ? 'rgba(243, 244, 246)' : ''"
+>
+  <div class="flex w-3/12 pt-2 pb-1">
+    <p class="ml-4 font-medium text-gray-600">{{ zoneValue.zoneName }}</p>
+    <p class="ml-28 font-medium text-gray-600">
+      ${{ zoneValue.zonePrice | number: "1.2-2" }}
+    </p>
+    <p class="material-icons ml-20">delete</p>
+  </div>
+</div>
