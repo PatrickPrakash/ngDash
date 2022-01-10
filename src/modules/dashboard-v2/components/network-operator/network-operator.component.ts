@@ -15,7 +15,6 @@ export class NetworkOperatorComponent implements OnInit {
     { zoneName: 'C', zonePrice: 30 },
   ];
   ngOnInit(): void {
-    // this.zoneDetails.push({ zoneName: 'A', zonePrice: 10 });
+    console.log('View initialized');
   }
-
 }
