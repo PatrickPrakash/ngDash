@@ -5,4 +5,3 @@ export interface TariffDetails {
   network_code: number;
   increment_type: string;
 }
-    
