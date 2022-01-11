@@ -1,0 +1,24 @@
+<p class="text-gray-600 font-medium text-base mt-3">Upload Tariff</p>
+<div class="flex">
+  <div class="border-2 border-dashed h-36 w-1/6 border-gray-400 mt-2 relative">
+    <input
+      type="file"
+      (change)="onFileChange($event)"
+      multiple="false"
+      class="opacity-0 w-full h-full"
+    />
+
+    <div
+      class="text-center absolute top-10 bottom-0 right-0 left-0 mr-auto ml-auto w-full"
+    >
+      <p class="material-icons text-gray-500">upload</p>
+      <p class="text-gray-500">{{ fileName }}</p>
+    </div>
+  </div>
+  <div class="h-auto flex self-end ml-4">
+    <p class="material-icons text-gray-500">download</p>
+    <a href="{{ sampleSheetLink }}" class="text-blue-400 font-medium"
+      >Generate sample sheet</a
+    >
+  </div>
+</div>

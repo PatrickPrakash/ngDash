@@ -6,8 +6,20 @@ import { ToastService } from 'src/modules/core/services/toast.service';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () =>
-      import('src/modules/auth/auth.module').then((m) => m.AuthModule),
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('src/modules/auth/auth.module').then((m) => m.AuthModule),
+      },
+      {
+        path: '',
+        loadChildren: () =>
+          import('src/modules/dashboard-v2/dashboard-v2.module').then(
+            (m) => m.DashboardV2Module
+          ),
+      },
+    ],
   },
   {
     path: 'dashboard',
