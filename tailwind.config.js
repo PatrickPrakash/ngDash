@@ -1,22 +1,22 @@
 module.exports = {
-  content : [ "./src/**/*.{html,ts}" ],
-  mode : "jit",
-  important : true,
-  corePlugins : {
-    preflight : false,
+  content: ["./src/**/*.{html,ts}"],
+  mode: "jit",
+  important: true,
+  corePlugins: {
+    preflight: false,
   },
-  purge : [
+  purge: [
     {
-      enabled : true,
-      content : [ "./src/**/*.{html,ts}" ],
+      enabled: true,
+      content: ["./src/**/*.{html,ts}"],
     },
   ],
-  darkMode : false, // or 'media' or 'class'
-  theme : {
-    extend : {},
+  darkMode: false, // or 'media' or 'class'
+  theme: {
+    extend: {},
   },
-  variants : {
-    extend : {},
+  variants: {
+    extend: {},
   },
-  plugins : [],
+  plugins: [],
 };
