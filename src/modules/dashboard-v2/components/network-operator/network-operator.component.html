@@ -1,28 +1,35 @@
-<p class="text-gray-800 font-medium opacity-80 mb-1">Network Operator Name</p>
-<input
-  type="text"
-  placeholder="Enter Network Operator Name"
-  class="rounded-2xl border-gray-400 border-solid border w-3/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8 mb-4"
-/>
-
-<div class="flex">
+<form action="" [formGroup]="networkOperatorForm" (ngSubmit)="logData()">
+  <p class="text-gray-800 font-medium opacity-80 mb-1">Network Operator Name</p>
   <input
     type="text"
-    placeholder="Enter Zone"
-    class="rounded-2xl border-gray-400 border-solid border w-1/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8 mr-3"
-  />
-  <input
-    type="number"
-    placeholder="$0.00"
-    class="rounded-2xl border-gray-400 border-solid border w-1/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8 mr-3 pr-3"
+    placeholder="Enter Network Operator Name"
+    formControlName="network_operator"
+    class="rounded-2xl border-gray-400 border-solid border w-3/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8 mb-4"
   />
 
-  <button
-    class="rounded-2xl bg-gradient-to-r from-indigo-500 to-indigo-800 w-16 text-gray-200 text-sm"
-  >
-    Add
-  </button>
-</div>
+  <div class="flex" formGroupName="zone_details">
+    <input
+      type="text"
+      placeholder="Enter Zone"
+      formControlName="zoneName"
+      class="rounded-2xl border-gray-400 border-solid border w-1/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8 mr-3"
+    />
+    <input
+      type="number"
+      placeholder="$0.00"
+      formControlName="zonePrice"
+      class="rounded-2xl border-gray-400 border-solid border w-1/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8 mr-3 pr-3"
+    />
+
+    <button
+      class="rounded-2xl bg-gradient-to-r from-indigo-500 to-indigo-800 w-16 text-gray-200 text-sm"
+      type="submit"
+    >
+      Add
+    </button>
+  </div>
+</form>
+
 <hr class="bg-gray-200 w-3/12 mt-3" />
 
 <div class="flex mt-3">
@@ -32,14 +39,21 @@
 <hr class="w-3/12 mt-3 border h-1 border-gray-200 bg-gray-200" />
 <div
   class="w-3/12"
-  *ngFor="let zoneValue of zoneDetails; even as even"
+  *ngFor="let zoneValue of network_operator_data.zone_details; even as even"
   [style.background-color]="even ? 'rgba(243, 244, 246)' : ''"
 >
-  <div class="flex w-3/12 pt-2 pb-1">
-    <p class="ml-4 font-medium text-gray-600">{{ zoneValue.zoneName }}</p>
-    <p class="ml-28 font-medium text-gray-600">
-      ${{ zoneValue.zonePrice | number: "1.2-2" }}
+  <div class="flex w-full pt-2 pb-1">
+    <p class="ml-4 grow font-medium text-gray-600">
+      {{ zoneValue.zoneName }}
     </p>
-    <p class="material-icons ml-20">delete</p>
+    <p class="ml-28 grow font-medium text-gray-600">
+      ${{ zoneValue.zonePrice | number: ".2-3" }}
+    </p>
+    <p
+      class="flex-none material-icons self-end mr-5"
+      (click)="deleteDataItem(zoneValue)"
+    >
+      delete
+    </p>
   </div>
 </div>

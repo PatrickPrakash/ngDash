@@ -5,9 +5,15 @@ import { DashboardV2Routing } from './dashboard-v2-routing.module';
 import { NetworkOperatorComponent } from './components/network-operator/network-operator.component';
 import { TariffUploadComponent } from './components/tariff-upload/tariff-upload.component';
 import { TariffDisplayUpdateComponent } from './components/tariff-display-update/tariff-display-update.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [DashboardV2Component, NetworkOperatorComponent, TariffUploadComponent, TariffDisplayUpdateComponent],
-  imports: [CommonModule, DashboardV2Routing],
+  declarations: [
+    DashboardV2Component,
+    NetworkOperatorComponent,
+    TariffUploadComponent,
+    TariffDisplayUpdateComponent,
+  ],
+  imports: [CommonModule, ReactiveFormsModule, DashboardV2Routing],
 })
 export class DashboardV2Module {}
