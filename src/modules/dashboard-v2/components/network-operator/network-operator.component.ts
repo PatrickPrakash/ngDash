@@ -11,28 +11,7 @@ export class NetworkOperatorComponent {
 
   network_operator_data: networkOperator = {
     network_operator: '',
-    zone_details: [
-      {
-        zoneName: 'A',
-        zonePrice: 10,
-      },
-      {
-        zoneName: 'A',
-        zonePrice: 100,
-      },
-      {
-        zoneName: 'A',
-        zonePrice: 1000,
-      },
-      {
-        zoneName: 'A',
-        zonePrice: 10000,
-      },
-      {
-        zoneName: 'A',
-        zonePrice: 100000,
-      },
-    ],
+    zone_details: [],
   };
 
   networkOperatorForm = this.fb.group({
