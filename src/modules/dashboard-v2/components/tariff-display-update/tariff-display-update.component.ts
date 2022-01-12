@@ -8,7 +8,8 @@ import { TariffService } from '../../services/tariff.service';
   styleUrls: ['./tariff-display-update.component.scss'],
 })
 export class TariffDisplayUpdateComponent implements OnInit {
-  tariffMockDetails = TariffMockDetails;
+  tariffMockDetails: TariffDetails[] | undefined;
+
 
   constructor(private tariffService: TariffService) {}
   ngOnInit(): void {
@@ -19,31 +20,31 @@ export class TariffDisplayUpdateComponent implements OnInit {
   }
 
   removeItem(data: any): void {
-    this.tariffMockDetails.splice(this.tariffMockDetails.indexOf(data), 1);
+    this.tariffMockDetails?.splice(this.tariffMockDetails.indexOf(data), 1);
   }
 
   handleDataChange(event: any, type: any, item: any): void {
     switch (type) {
       case 'zone':
-        this.tariffMockDetails[item].zone = event.target.value;
+        this.tariffMockDetails!![item].zone = event.target.value;
         this.tariffService.updateData(this.tariffMockDetails);
         break;
       case 'country':
-        this.tariffMockDetails[item].country = event.target.value;
+        this.tariffMockDetails!![item].country = event.target.value;
         this.tariffService.updateData(this.tariffMockDetails);
         break;
       case 'network_operator':
-        this.tariffMockDetails[item].network_operator = event.target.value;
+        this.tariffMockDetails!![item].network_operator = event.target.value;
         this.tariffService.updateData(this.tariffMockDetails);
         break;
 
       case 'network_code':
-        this.tariffMockDetails[item].network_code = event.target.value;
+        this.tariffMockDetails!![item].network_code = event.target.value;
         this.tariffService.updateData(this.tariffMockDetails);
         break;
 
       case 'increment_type':
-        this.tariffMockDetails[item].increment_type = event.target.value;
+        this.tariffMockDetails!![item].increment_type = event.target.value;
         this.tariffService.updateData(this.tariffMockDetails);
         break;
 
