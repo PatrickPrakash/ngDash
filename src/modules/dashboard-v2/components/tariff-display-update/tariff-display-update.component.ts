@@ -8,44 +8,64 @@ import { TariffService } from '../../services/tariff.service';
   styleUrls: ['./tariff-display-update.component.scss'],
 })
 export class TariffDisplayUpdateComponent implements OnInit {
-  tariffMockDetails: TariffDetails[] | undefined;
-
+  tariffDataDetails: TariffDetails[] = [
+    {
+      zone: '',
+      country: '',
+      increment_type: '',
+      network_code: 0,
+      network_operator: '',
+    },
+  ];
 
   constructor(private tariffService: TariffService) {}
   ngOnInit(): void {
-    console.log(this.tariffMockDetails);
+    this.tariffDataDetails.splice(0, 1); // Remove the first value from the array when component is initialized
+    console.log(this.tariffDataDetails);
     this.tariffService.tariffData.subscribe((data) => {
-      (this.tariffMockDetails = data), console.log(this.tariffMockDetails);
+      (this.tariffDataDetails = data), console.log(this.tariffDataDetails);
     });
   }
 
   removeItem(data: any): void {
-    this.tariffMockDetails?.splice(this.tariffMockDetails.indexOf(data), 1);
+    this.tariffDataDetails?.splice(this.tariffDataDetails.indexOf(data), 1);
+  }
+
+  addItem(): void {
+    this.tariffDataDetails?.push({
+      zone: '',
+      country: '',
+      increment_type: '',
+      network_code: 0,
+      network_operator: '',
+    });
+    this.tariffService.updateData(this.tariffDataDetails);
+    console.log(this.tariffDataDetails);
   }
 
   handleDataChange(event: any, type: any, item: any): void {
     switch (type) {
       case 'zone':
-        this.tariffMockDetails!![item].zone = event.target.value;
-        this.tariffService.updateData(this.tariffMockDetails);
+        this.tariffDataDetails!![item].zone = event.target.value;
+        this.tariffService.updateData(this.tariffDataDetails);
         break;
       case 'country':
-        this.tariffMockDetails!![item].country = event.target.value;
-        this.tariffService.updateData(this.tariffMockDetails);
+        this.tariffDataDetails!![item].country = event.target.value;
+        this.tariffService.updateData(this.tariffDataDetails);
         break;
       case 'network_operator':
-        this.tariffMockDetails!![item].network_operator = event.target.value;
-        this.tariffService.updateData(this.tariffMockDetails);
+        this.tariffDataDetails!![item].network_operator = event.target.value;
+        this.tariffService.updateData(this.tariffDataDetails);
         break;
 
       case 'network_code':
-        this.tariffMockDetails!![item].network_code = event.target.value;
-        this.tariffService.updateData(this.tariffMockDetails);
+        this.tariffDataDetails!![item].network_code = event.target.value;
+        this.tariffService.updateData(this.tariffDataDetails);
         break;
 
       case 'increment_type':
-        this.tariffMockDetails!![item].increment_type = event.target.value;
-        this.tariffService.updateData(this.tariffMockDetails);
+        this.tariffDataDetails!![item].increment_type = event.target.value;
+        this.tariffService.updateData(this.tariffDataDetails);
         break;
 
       default:
