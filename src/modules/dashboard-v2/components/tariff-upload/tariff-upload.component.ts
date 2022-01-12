@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { environment } from 'src/environments/environment.prod';
+import { TariffDetails } from 'src/modules/dashboard-v2/models/tariff-details';
+import { TariffService } from 'src/modules/dashboard-v2/services/tariff.service';
+import { TariffMockDetails } from 'src/modules/dashboard-v2/models/tariff-mock-data';
+import { BehaviorSubject } from 'rxjs';
 
 //Type of the data sheet
-type AOA = any[][];
+type AOA = TariffDetails[][];
 
 @Component({
   selector: 'app-tariff-upload',
@@ -13,13 +17,21 @@ type AOA = any[][];
 export class TariffUploadComponent implements OnInit {
   fileName: string = 'Drag file to Upload';
   sampleSheetLink = environment.sampleSheetLink;
-  constructor() {}
+
+  constructor(private tariffService: TariffService) {}
 
   ngOnInit(): void {}
 
   // Define the excel sheet data
   data: AOA = [[], []];
   value: any;
+  sheetDataType = [
+    'zone',
+    'country',
+    'network_operator',
+    'network_code',
+    'increment_type',
+  ];
 
   onFileChange(event: any) {
     this.fileName = event.target.files[0].name;
@@ -39,7 +51,11 @@ export class TariffUploadComponent implements OnInit {
       const ws: XLSX.WorkSheet = wb.Sheets[wsname];
 
       /* save data */
-      this.data = <AOA>XLSX.utils.sheet_to_json(ws, { header: 1 });
+      this.data = XLSX.utils.sheet_to_json(ws, {
+        header: this.sheetDataType,
+      });
+      this.data.splice(0, 1); // Remove the headers
+      this.tariffService.updateData(this.data); // Update the data without header
     };
     reader.readAsArrayBuffer(target.files[0]);
   }
