@@ -18,7 +18,9 @@ export class TariffDisplayUpdateComponent implements OnInit {
     });
   }
 
-  removeItem(data: any): void {}
+  removeItem(data: any): void {
+    this.tariffMockDetails.splice(this.tariffMockDetails.indexOf(data), 1);
+  }
 
   handleDataChange(event: any, type: any, item: any): void {
     switch (type) {
