@@ -53,8 +53,8 @@ export class TariffUploadComponent implements OnInit {
       /* save data */
       this.data = XLSX.utils.sheet_to_json(ws, {
         header: this.sheetDataType,
+        range: 1, // Remove the header part
       });
-      this.data.splice(0, 1); // Remove the headers
       this.tariffService.updateData(this.data); // Update the data without header
     };
     reader.readAsArrayBuffer(target.files[0]);
