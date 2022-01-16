@@ -55,6 +55,8 @@ export class TariffUploadComponent implements OnInit {
         header: this.sheetDataType,
         range: 1, // Remove the header part
       });
+      console.log(this.data);
+
       this.tariffService.updateData(this.data); // Update the data without header
     };
     reader.readAsArrayBuffer(target.files[0]);

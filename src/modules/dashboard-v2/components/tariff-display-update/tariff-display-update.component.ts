@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { TariffDetails } from '../../models/tariff-details';
-import { TariffMockDetails } from '../../models/tariff-mock-data';
 import { TariffService } from '../../services/tariff.service';
+import { TariffValidator } from '../../../shared/formValidators/tariff-validator';
+import { networkOperator } from '../../models/network-operator-data';
 @Component({
   selector: 'app-tariff-display-update',
   templateUrl: './tariff-display-update.component.html',
@@ -18,57 +20,72 @@ export class TariffDisplayUpdateComponent implements OnInit {
     },
   ];
 
-  constructor(private tariffService: TariffService) {}
+  networkDataDetails: networkOperator = {
+    network_operator: '',
+    zone_details: [],
+  };
+
+  constructor(private tariffService: TariffService, private fb: FormBuilder) {}
   ngOnInit(): void {
-    this.tariffDataDetails.splice(0, 1); // Remove the first value from the array when component is initialized
-    console.log(this.tariffDataDetails);
     this.tariffService.tariffData.subscribe((data) => {
-      (this.tariffDataDetails = data), console.log(this.tariffDataDetails);
+      this.TariffItem().clear(); // Clear all previous form data if new data arrives
+      data.forEach((element) => {
+        // For each data from the sheetData greata temporary group and add push data into the formArray
+        let tariffItemData = this.fb.group({
+          zone: this.fb.control(
+            element.zone,
+            TariffValidator.zoneValidator(
+              this.networkDataDetails.zone_details.map(
+                (value) => value.zoneName
+              )
+            )
+          ),
+          country: this.fb.control(element.country),
+          increment_type: this.fb.control(element.increment_type),
+          network_code: this.fb.control(element.network_code),
+          network_operator: this.fb.control(element.network_operator),
+        });
+        this.TariffItem().push(tariffItemData);
+      });
+    });
+
+    this.tariffService
+      .getNetworkOpData()
+      .subscribe((data) => (this.networkDataDetails = data));
+  }
+
+  tariffForm = this.fb.group({
+    tariffItem: this.fb.array([]),
+  });
+
+  newTariffItem(): FormGroup {
+    return this.fb.group({
+      zone: this.fb.control(
+        '',
+        TariffValidator.zoneValidator(
+          this.networkDataDetails.zone_details.map((value) => value.zoneName)
+        )
+      ),
+      country: this.fb.control(''),
+      increment_type: this.fb.control(''),
+      network_code: this.fb.control(''),
+      network_operator: this.fb.control(''),
     });
   }
 
-  removeItem(data: any): void {
-    this.tariffDataDetails?.splice(this.tariffDataDetails.indexOf(data), 1);
+  TariffItem(): FormArray {
+    return this.tariffForm.get('tariffItem') as FormArray;
   }
 
-  addItem(): void {
-    this.tariffDataDetails?.push({
-      zone: '',
-      country: '',
-      increment_type: '',
-      network_code: 0,
-      network_operator: '',
-    });
-    this.tariffService.updateData(this.tariffDataDetails);
-    console.log(this.tariffDataDetails);
+  addTariffItem(): void {
+    this.TariffItem().push(this.newTariffItem());
   }
 
-  handleDataChange(event: any, type: any, item: any): void {
-    switch (type) {
-      case 'zone':
-        this.tariffDataDetails!![item].zone = event.target.value;
-        this.tariffService.updateData(this.tariffDataDetails);
-        break;
-      case 'country':
-        this.tariffDataDetails!![item].country = event.target.value;
-        this.tariffService.updateData(this.tariffDataDetails);
-        break;
-      case 'network_operator':
-        this.tariffDataDetails!![item].network_operator = event.target.value;
-        this.tariffService.updateData(this.tariffDataDetails);
-        break;
+  removeTariffItem(index: any): void {
+    this.TariffItem().removeAt(index);
+  }
 
-      case 'network_code':
-        this.tariffDataDetails!![item].network_code = event.target.value;
-        this.tariffService.updateData(this.tariffDataDetails);
-        break;
-
-      case 'increment_type':
-        this.tariffDataDetails!![item].increment_type = event.target.value;
-        this.tariffService.updateData(this.tariffDataDetails);
-        break;
-
-      default:
-    }
+  submitTariffData(): void {
+    console.log(this.tariffForm.get('tariffItem')?.value);
   }
 }
