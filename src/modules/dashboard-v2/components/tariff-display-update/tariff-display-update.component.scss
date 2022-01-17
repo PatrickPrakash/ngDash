@@ -3,10 +3,18 @@ input {
   font-size: smaller;
 }
 
-input.ng-valid {
-  border: 2px solid #42a948;
+// input.ng-valid {
+//   border: 2px solid #42a948;
+// }
+
+// input.ng-invalid:not(form) {
+//   border: 2px solid #a94442;
+// }
+
+.border-success {
+    border: 2px solid #42a948;
 }
 
-input.ng-invalid:not(form) {
-  border: 2px solid #a94442;
+.border-danger {
+    border: 2px solid #a94442;
 }

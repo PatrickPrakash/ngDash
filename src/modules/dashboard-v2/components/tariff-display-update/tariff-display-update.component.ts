@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { TariffDetails } from '../../models/tariff-details';
 import { TariffService } from '../../services/tariff.service';
 import { TariffValidator } from '../../../shared/formValidators/tariff-validator';
+import { TariffAsyncValidator } from 'src/modules/shared/formValidators/tariffAsyncValidator';
 import { networkOperator } from '../../models/network-operator-data';
+import { combineLatest, map, of } from 'rxjs';
 @Component({
   selector: 'app-tariff-display-update',
   templateUrl: './tariff-display-update.component.html',
@@ -25,26 +27,30 @@ export class TariffDisplayUpdateComponent implements OnInit {
     zone_details: [],
   };
 
-  constructor(private tariffService: TariffService, private fb: FormBuilder) {}
+  constructor(
+    private tariffService: TariffService,
+    private fb: FormBuilder,
+    private tariffAsyncValidator: TariffAsyncValidator
+  ) {}
   ngOnInit(): void {
     this.tariffService.tariffData.subscribe((data) => {
       this.TariffItem().clear(); // Clear all previous form data if new data arrives
       data.forEach((element) => {
         // For each data from the sheetData greata temporary group and add push data into the formArray
-        let tariffItemData = this.fb.group({
-          zone: this.fb.control(
-            element.zone,
-            TariffValidator.zoneValidator(
-              this.networkDataDetails.zone_details.map(
-                (value) => value.zoneName
-              )
-            )
-          ),
-          country: this.fb.control(element.country),
-          increment_type: this.fb.control(element.increment_type),
-          network_code: this.fb.control(element.network_code),
-          network_operator: this.fb.control(element.network_operator),
-        });
+        let tariffItemData = this.fb.group(
+          {
+            zone: this.fb.control(
+              element.zone,
+              null,
+              this.tariffAsyncValidator.zoneValidator()
+            ),
+            country: this.fb.control(element.country),
+            increment_type: this.fb.control(element.increment_type),
+            network_code: this.fb.control(element.network_code),
+            network_operator: this.fb.control(element.network_operator),
+          },
+          { updateOn: 'submit' }
+        );
         this.TariffItem().push(tariffItemData);
       });
     });
@@ -54,23 +60,28 @@ export class TariffDisplayUpdateComponent implements OnInit {
       .subscribe((data) => (this.networkDataDetails = data));
   }
 
-  tariffForm = this.fb.group({
-    tariffItem: this.fb.array([]),
-  });
+  tariffForm = this.fb.group(
+    {
+      tariffItem: this.fb.array([]),
+    },
+    { updateOn: 'submit' }
+  );
 
   newTariffItem(): FormGroup {
-    return this.fb.group({
-      zone: this.fb.control(
-        '',
-        TariffValidator.zoneValidator(
-          this.networkDataDetails.zone_details.map((value) => value.zoneName)
-        )
-      ),
-      country: this.fb.control(''),
-      increment_type: this.fb.control(''),
-      network_code: this.fb.control(''),
-      network_operator: this.fb.control(''),
-    });
+    return this.fb.group(
+      {
+        zone: this.fb.control(
+          '',
+          null,
+          this.tariffAsyncValidator.zoneValidator()
+        ),
+        country: this.fb.control(''),
+        increment_type: this.fb.control(''),
+        network_code: this.fb.control(''),
+        network_operator: this.fb.control(''),
+      },
+      { updateOn: 'submit' }
+    );
   }
 
   TariffItem(): FormArray {
@@ -86,6 +97,9 @@ export class TariffDisplayUpdateComponent implements OnInit {
   }
 
   submitTariffData(): void {
-    console.log(this.tariffForm.get('tariffItem')?.value);
+    console.log(this.tariffForm.get('tariffItem'));
+    if (this.tariffForm.valid) {
+      console.log('It is valid');
+    }
   }
 }

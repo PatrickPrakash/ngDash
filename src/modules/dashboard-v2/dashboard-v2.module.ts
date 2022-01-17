@@ -6,6 +6,7 @@ import { NetworkOperatorComponent } from './components/network-operator/network-
 import { TariffUploadComponent } from './components/tariff-upload/tariff-upload.component';
 import { TariffDisplayUpdateComponent } from './components/tariff-display-update/tariff-display-update.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TariffAsyncValidator } from '../shared/formValidators/tariffAsyncValidator';
 
 @NgModule({
   declarations: [
@@ -15,5 +16,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     TariffDisplayUpdateComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, DashboardV2Routing],
+  providers: [TariffAsyncValidator],
 })
 export class DashboardV2Module {}
