@@ -1,6 +1,5 @@
-import { Injector } from '@angular/core';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { TariffService } from 'src/modules/dashboard-v2/services/tariff.service';
+import { Observable } from 'rxjs';
 export class TariffValidator {
   static zoneValidator(data: any): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -24,6 +23,17 @@ export class TariffValidator {
       }
       console.log('Validation is true');
       return null;
+    };
+  }
+  static networkCodeValidator(dupCodes: any): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      console.log(dupCodes);
+
+      if (dupCodes.includes(control.value)) {
+        return { networkCode: true };
+      } else {
+        return null;
+      }
     };
   }
 }

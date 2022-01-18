@@ -5,6 +5,7 @@ import { TariffDetails } from 'src/modules/dashboard-v2/models/tariff-details';
 import { TariffService } from 'src/modules/dashboard-v2/services/tariff.service';
 import { TariffMockDetails } from 'src/modules/dashboard-v2/models/tariff-mock-data';
 import { BehaviorSubject } from 'rxjs';
+import { ToastService } from 'src/modules/core/services/toast.service';
 
 //Type of the data sheet
 type AOA = TariffDetails[][];
@@ -18,7 +19,10 @@ export class TariffUploadComponent implements OnInit {
   fileName: string = 'Drag file to Upload';
   sampleSheetLink = environment.sampleSheetLink;
 
-  constructor(private tariffService: TariffService) {}
+  constructor(
+    private tariffService: TariffService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -55,9 +59,13 @@ export class TariffUploadComponent implements OnInit {
         header: this.sheetDataType,
         range: 1, // Remove the header part
       });
-      console.log(this.data);
-
-      this.tariffService.updateData(this.data); // Update the data without header
+      if (this.data.length == 0) {
+        console.log('No data found');
+        //Display a toast box to the user
+        this.toastService.openSnackBar('Please upload a valid sheet');
+      } else {
+        this.tariffService.updateData(this.data); // Update the data without header
+      }
     };
     reader.readAsArrayBuffer(target.files[0]);
   }

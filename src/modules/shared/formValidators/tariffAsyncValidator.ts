@@ -35,13 +35,40 @@ export class TariffAsyncValidator {
         (data: any) => data.zoneName
       );
       if (lastestZoneData.includes(control.value)) {
-        console.log('Validation is false');
         return of(null);
       } else {
-        console.log('Validation is true');
-
         return of({ zone: true });
       }
+    };
+    {
+    }
+  }
+
+  networkCodeValidator(): AsyncValidatorFn {
+    return (
+      control: AbstractControl
+    ):
+      | Promise<{ [key: string]: any } | null>
+      | Observable<{ [key: string]: any } | null> => {
+      let formArray = control.parent?.parent?.value;
+      console.log(formArray);
+
+      if (formArray) {
+        let networkCode = formArray.map((data: any) => data.network_code);
+
+        if (
+          this.tariffService.isNetworkCodeCheckDuplicate(
+            control.value,
+            networkCode
+          )
+        ) {
+          console.log('Running code check duplicate');
+          return of({ networkCode: true });
+        }
+      }
+      console.log('Both conditions unsatisfied');
+
+      return of(null);
     };
   }
 }

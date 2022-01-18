@@ -46,9 +46,14 @@
             formControlName="network_operator"
           />
           <input
-            type="text"
+            type="number"
             class="rounded-3xl border-gray-300 border-solid border w-2/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8"
             formControlName="network_code"
+            [ngClass]="
+              tariff.get('network_code')?.errors
+                ? 'border-danger'
+                : 'border-success'
+            "
           />
           <input
             type="text"
