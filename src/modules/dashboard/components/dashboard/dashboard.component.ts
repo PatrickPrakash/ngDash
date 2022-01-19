@@ -24,6 +24,5 @@ export class DashboardComponent implements OnInit {
 
   setProgress(progressNumber: number): void {
     this.progressBarValue = progressNumber;
-    console.log('Progress Bar Value' + this.progressBarValue);
   }
 }

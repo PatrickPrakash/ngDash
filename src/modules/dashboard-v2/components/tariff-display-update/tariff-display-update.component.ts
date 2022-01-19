@@ -1,5 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+} from '@angular/forms';
 import { TariffDetails } from '../../models/tariff-details';
 import { TariffService } from '../../services/tariff.service';
 import { TariffAsyncValidator } from 'src/modules/shared/formValidators/tariffAsyncValidator';
@@ -52,13 +58,15 @@ export class TariffDisplayUpdateComponent implements OnInit {
 
   newTariffItem(): FormGroup {
     return this.fb.group({
-      zone: this.fb.control(
+      zone: this.fb.control('', {
+        updateOn: 'submit',
+        asyncValidators: this.tariffAsyncValidator.zoneValidator(),
+      }),
+      country: this.fb.control('', null, null),
+      increment_type: this.fb.control(
         '',
-        null,
-        this.tariffAsyncValidator.zoneValidator()
+        RxwebValidators.oneOf({ matchValues: ['KB', 'MB'] })
       ),
-      country: this.fb.control(''),
-      increment_type: this.fb.control(''),
       network_code: this.fb.control('', RxwebValidators.unique()),
       network_operator: this.fb.control(''),
     });
@@ -66,9 +74,15 @@ export class TariffDisplayUpdateComponent implements OnInit {
 
   newTariffValueForm(element: any): FormGroup {
     return this.fb.group({
-      zone: [element.zone, null, this.tariffAsyncValidator.zoneValidator()],
+      zone: this.fb.control(element.zone, {
+        updateOn: 'submit',
+        asyncValidators: this.tariffAsyncValidator.zoneValidator(),
+      }),
       country: [element.country],
-      increment_type: [element.increment_type],
+      increment_type: [
+        element.increment_type,
+        RxwebValidators.oneOf({ matchValues: ['KB', 'MB'] }),
+      ],
       network_code: [element.network_code, RxwebValidators.unique()],
       network_operator: [element.network_operator],
     });
@@ -87,9 +101,15 @@ export class TariffDisplayUpdateComponent implements OnInit {
   }
 
   submitTariffData(): void {
-    console.log(this.tariffForm.status);
+    for (const tariff of this.TariffItem().controls) {
+      //Manually Validate all the neccesary controls on submission
+      tariff.get('zone')?.updateValueAndValidity();
+      tariff.get('network_code')?.updateValueAndValidity();
+      tariff.get('increment_type')?.updateValueAndValidity();
+    }
+
     if (this.tariffForm.valid) {
-      console.log('It is valid');
+      console.log(this.tariffForm.value);
     }
   }
 }

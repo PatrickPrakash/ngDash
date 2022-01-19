@@ -15,20 +15,16 @@ export class TariffValidator {
       //   tariffService
       //     .getNetworkOpData()
       //     .subscribe((data) => (networkData = data));
-      //   console.log(networkData);
+      //
       if (data.includes(control.value)) {
-        console.log(data);
-        console.log('Validation is false');
         return { zone: true };
       }
-      console.log('Validation is true');
+
       return null;
     };
   }
   static networkCodeValidator(dupCodes: any): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      console.log(dupCodes);
-
       if (dupCodes.includes(control.value)) {
         return { networkCode: true };
       } else {

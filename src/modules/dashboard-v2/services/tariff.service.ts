@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject, BehaviorSubject, Observable, map } from 'rxjs';
+import { ReplaySubject, Observable, map } from 'rxjs';
 import { TariffDetails } from 'src/modules/dashboard-v2/models/tariff-details';
 import { networkOperator } from '../models/network-operator-data';
 @Injectable({
@@ -8,8 +8,6 @@ import { networkOperator } from '../models/network-operator-data';
 export class TariffService {
   tariffData = new ReplaySubject<TariffDetails[]>();
   networkData = new ReplaySubject<networkOperator>();
-
-  // $tariffData = this.tariffData.asObservable();
 
   constructor() {}
 
@@ -34,18 +32,10 @@ export class TariffService {
     result = networkCode.some((element: any, index: any) => {
       return networkCode.indexOf(element) !== index;
     });
-    if (result) {
-      return true;
-    } else {
-      return false;
-    }
+    return result;
   }
 
   isNetworkCodeCheckDuplicate(networkCode: any, networkArray: any) {
-    console.log('Consoling the network Array');
-
-    console.log(networkArray);
-
     return networkArray.includes(networkCode);
   }
 

@@ -60,7 +60,6 @@ export class TariffUploadComponent implements OnInit {
         range: 1, // Remove the header part
       });
       if (this.data.length == 0) {
-        console.log('No data found');
         //Display a toast box to the user
         this.toastService.openSnackBar('Please upload a valid sheet');
       } else {

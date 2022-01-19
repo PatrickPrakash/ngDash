@@ -36,7 +36,6 @@ export class SigninComponent implements OnInit {
 
   ngOnInit(): void {
     //Logging any existing token
-    console.log(this.authService.getToken());
   }
 
   Submit() {
