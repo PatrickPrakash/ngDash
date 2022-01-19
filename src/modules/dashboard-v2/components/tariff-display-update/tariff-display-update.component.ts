@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
@@ -12,6 +12,8 @@ import { TariffService } from '../../services/tariff.service';
 import { TariffAsyncValidator } from 'src/modules/shared/formValidators/tariffAsyncValidator';
 import { networkOperator } from '../../models/network-operator-data';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
+import { MatDialog } from '@angular/material/dialog';
+import { TariffConfirmDialogComponent } from '../tariff-confirm-dialog/tariff-confirm-dialog.component';
 @Component({
   selector: 'app-tariff-display-update',
   templateUrl: './tariff-display-update.component.html',
@@ -37,7 +39,7 @@ export class TariffDisplayUpdateComponent implements OnInit {
     private tariffService: TariffService,
     private fb: FormBuilder,
     private tariffAsyncValidator: TariffAsyncValidator,
-    private cd: ChangeDetectorRef
+    public dialog: MatDialog
   ) {}
   ngOnInit(): void {
     this.tariffService.tariffData.subscribe((data) => {
@@ -125,7 +127,17 @@ export class TariffDisplayUpdateComponent implements OnInit {
     }
 
     if (this.tariffForm.valid && !(this.TariffItem().length == 0)) {
-      console.log(this.tariffForm.value);
+      // console.log(this.tariffForm.value);
+      let dialogRef = this.dialog.open(TariffConfirmDialogComponent, {
+        height: '160px',
+        width: '300px',
+      });
+
+      dialogRef.afterClosed().subscribe((result: any) => {
+        if (result) {
+          console.log(this.tariffForm.value);
+        }
+      });
     }
   }
 }

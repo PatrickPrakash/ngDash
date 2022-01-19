@@ -9,6 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TariffAsyncValidator } from '../shared/formValidators/tariffAsyncValidator';
 import { CoreModule } from '../core/core.module';
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
+import { TariffConfirmDialogComponent } from './components/tariff-confirm-dialog/tariff-confirm-dialog.component';
+import { MaterialModule } from '../shared/modules/material/material.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
     NetworkOperatorComponent,
     TariffUploadComponent,
     TariffDisplayUpdateComponent,
+    TariffConfirmDialogComponent,
   ],
   imports: [
     CommonModule,
