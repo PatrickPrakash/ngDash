@@ -5,6 +5,7 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  Validators,
 } from '@angular/forms';
 import { TariffDetails } from '../../models/tariff-details';
 import { TariffService } from '../../services/tariff.service';
@@ -60,15 +61,19 @@ export class TariffDisplayUpdateComponent implements OnInit {
     return this.fb.group({
       zone: this.fb.control('', {
         updateOn: 'submit',
+        validators: Validators.required,
         asyncValidators: this.tariffAsyncValidator.zoneValidator(),
       }),
-      country: this.fb.control('', null, null),
-      increment_type: this.fb.control(
-        '',
-        RxwebValidators.oneOf({ matchValues: ['KB', 'MB'] })
-      ),
-      network_code: this.fb.control('', RxwebValidators.unique()),
-      network_operator: this.fb.control(''),
+      country: this.fb.control('', Validators.required),
+      increment_type: this.fb.control('', [
+        Validators.required,
+        RxwebValidators.oneOf({ matchValues: ['KB', 'MB'] }),
+      ]),
+      network_code: this.fb.control('', [
+        Validators.required,
+        RxwebValidators.unique(),
+      ]),
+      network_operator: this.fb.control('', Validators.required),
     });
   }
 
@@ -76,15 +81,22 @@ export class TariffDisplayUpdateComponent implements OnInit {
     return this.fb.group({
       zone: this.fb.control(element.zone, {
         updateOn: 'submit',
+        validators: Validators.required,
         asyncValidators: this.tariffAsyncValidator.zoneValidator(),
       }),
-      country: [element.country],
+      country: [element.country, Validators.required],
       increment_type: [
         element.increment_type,
-        RxwebValidators.oneOf({ matchValues: ['KB', 'MB'] }),
+        [
+          RxwebValidators.oneOf({ matchValues: ['KB', 'MB'] }),
+          Validators.required,
+        ],
       ],
-      network_code: [element.network_code, RxwebValidators.unique()],
-      network_operator: [element.network_operator],
+      network_code: [
+        element.network_code,
+        [Validators.required, RxwebValidators.unique()],
+      ],
+      network_operator: [element.network_operator, Validators.required],
     });
   }
 
