@@ -127,7 +127,6 @@ export class TariffDisplayUpdateComponent implements OnInit {
     }
 
     if (this.tariffForm.valid && !(this.TariffItem().length == 0)) {
-      // console.log(this.tariffForm.value);
       let dialogRef = this.dialog.open(TariffConfirmDialogComponent, {
         height: '160px',
         width: '300px',

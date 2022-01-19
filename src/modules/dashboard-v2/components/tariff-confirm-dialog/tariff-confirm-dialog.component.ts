@@ -5,8 +5,6 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './tariff-confirm-dialog.component.html',
   styleUrls: ['./tariff-confirm-dialog.component.scss'],
 })
-export class TariffConfirmDialogComponent implements OnInit {
+export class TariffConfirmDialogComponent {
   constructor() {}
-
-  ngOnInit(): void {}
 }

@@ -15,7 +15,7 @@ type AOA = TariffDetails[][];
   templateUrl: './tariff-upload.component.html',
   styleUrls: ['./tariff-upload.component.scss'],
 })
-export class TariffUploadComponent implements OnInit {
+export class TariffUploadComponent {
   fileName: string = 'Drag file to Upload';
   sampleSheetLink = environment.sampleSheetLink;
 
@@ -23,8 +23,6 @@ export class TariffUploadComponent implements OnInit {
     private tariffService: TariffService,
     private toastService: ToastService
   ) {}
-
-  ngOnInit(): void {}
 
   // Define the excel sheet data
   data: AOA = [[], []];
@@ -40,6 +38,12 @@ export class TariffUploadComponent implements OnInit {
   onFileChange(event: any) {
     /* Intialize the file reader */
     const target: DataTransfer = <DataTransfer>event.target;
+
+    let networkZoneData: any;
+
+    this.tariffService.getNetworkOpData().subscribe((res) => {
+      networkZoneData = res.zone_details;
+    });
 
     if (target.files.length !== 1) throw new Error('Cannot use multiple files');
     const reader: FileReader = new FileReader();
@@ -60,6 +64,11 @@ export class TariffUploadComponent implements OnInit {
       if (this.data.length == 0) {
         //Display a toast box to the user
         this.toastService.openSnackBar('Please upload a valid sheet');
+      } else if (
+        (this.data && networkZoneData.length == 0) ||
+        networkZoneData.length == undefined
+      ) {
+        this.toastService.openSnackBar('Please enter the zone details');
       } else {
         this.fileName = event.target.files[0].name; //Update the file name in the fileDropdown box
 

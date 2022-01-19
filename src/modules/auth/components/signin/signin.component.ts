@@ -51,7 +51,7 @@ export class SigninComponent implements OnInit {
           } else {
             this.toastService.openSnackBar('Signed In Successfully');
             sessionStorage.setItem('access_token', value.token);
-            this.router.navigateByUrl('/dashboard');
+            this.router.navigateByUrl('/dashboardv2');
           }
         },
         error: (err) => {
