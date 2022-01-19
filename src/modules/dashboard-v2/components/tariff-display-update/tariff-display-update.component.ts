@@ -42,18 +42,22 @@ export class TariffDisplayUpdateComponent implements OnInit {
     public dialog: MatDialog
   ) {}
   ngOnInit(): void {
-    this.tariffService.tariffData.subscribe((data) => {
-      this.TariffItem().clear(); // Clear all previous form data if new data arrives
-
-      data.forEach((element) => {
-        this.TariffItem().push(this.newTariffValueForm(element));
-      });
+    this.tariffService.tariffData.subscribe({
+      next: (data) => {
+        this.TariffItem().clear(); // Clear all previous form data if new data arrives
+        data.forEach((element) => {
+          this.TariffItem().push(this.newTariffValueForm(element));
+        });
+      },
+      complete: () => {},
     });
 
     this.tariffService
       .getNetworkOpData()
       .subscribe((data) => (this.networkDataDetails = data));
   }
+
+  progressMode: any = 'determinate';
 
   tariffForm = this.fb.group({
     tariffItem: this.fb.array([]),
