@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { networkOperator } from '../../models/network-operator-data';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 import { TariffService } from '../../services/tariff.service';
 @Component({
   selector: 'app-network-operator',
@@ -16,23 +21,26 @@ export class NetworkOperatorComponent {
   };
 
   networkOperatorForm = this.fb.group({
-    network_operator: [''],
+    network_operator: ['', [Validators.required]],
     zone_details: this.fb.group({
-      zoneName: [''],
-      zonePrice: [''],
+      zoneName: ['', [Validators.required]],
+      zonePrice: ['', [Validators.required]],
     }),
   });
 
   addNetworkData(): void {
-    // Set the data from form
-    this.network_operator_data.network_operator =
-      this.networkOperatorForm.get('network_operator')?.value;
-    // Push the data to the array
-    this.network_operator_data.zone_details.push(
-      this.networkOperatorForm.get('zone_details')?.value
-    );
+    //Send the data only when the form is valid
+    if (this.networkOperatorForm.valid) {
+      // Set the data from form
+      this.network_operator_data.network_operator =
+        this.networkOperatorForm.get('network_operator')?.value;
+      // Push the data to the array
+      this.network_operator_data.zone_details.push(
+        this.networkOperatorForm.get('zone_details')?.value
+      );
 
-    this.tariffService.setNetworkOpData(this.network_operator_data); // Sends the data to the network replySubject
+      this.tariffService.setNetworkOpData(this.network_operator_data); // Sends the data to the network replySubject
+    }
   }
 
   deleteDataItem(data: any): void {

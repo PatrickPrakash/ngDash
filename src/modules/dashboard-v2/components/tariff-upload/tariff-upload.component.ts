@@ -38,8 +38,6 @@ export class TariffUploadComponent implements OnInit {
   ];
 
   onFileChange(event: any) {
-    this.fileName = event.target.files[0].name;
-
     /* Intialize the file reader */
     const target: DataTransfer = <DataTransfer>event.target;
 
@@ -63,6 +61,8 @@ export class TariffUploadComponent implements OnInit {
         //Display a toast box to the user
         this.toastService.openSnackBar('Please upload a valid sheet');
       } else {
+        this.fileName = event.target.files[0].name; //Update the file name in the fileDropdown box
+
         this.tariffService.updateData(this.data); // Update the data without header
       }
     };
