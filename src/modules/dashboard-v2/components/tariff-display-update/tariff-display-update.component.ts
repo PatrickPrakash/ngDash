@@ -135,7 +135,12 @@ export class TariffDisplayUpdateComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result) {
-          console.log(this.tariffForm.value);
+          let networktariff = {
+            ...this.TariffItem().value,
+            ...this.networkDataDetails,
+          };
+
+          console.log(networktariff);
         }
       });
     }
