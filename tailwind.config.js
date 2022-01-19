@@ -1,7 +1,7 @@
 module.exports = {
   content: ["./src/**/*.{html,ts}"],
   important: true,
-  prefix: 'tw-',
+  prefix: "tw-",
   corePlugins: {
     preflight: false,
   },
