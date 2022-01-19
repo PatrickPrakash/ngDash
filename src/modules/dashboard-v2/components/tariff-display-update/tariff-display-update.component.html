@@ -1,7 +1,9 @@
+<mat-spinner class="z-50 block p-0" [mode]="progressMode"></mat-spinner>
+
 <div class="flex flex-col">
   <button
     class="rounded-3xl bg-gradient-to-r from-indigo-500 to-indigo-800 w-20 h-9 text-gray-200 text-sm self-end mt-3"
-    (click)="addItem()"
+    (click)="addTariffItem()"
   >
     Add
   </button>
@@ -16,47 +18,82 @@
       <p class="font-medium text-gray-500">Network Code</p>
       <p class="font-medium text-gray-500 pr-36">Increment</p>
     </div>
-    <div class="h-96 overflow-scroll">
-      <div
-        class="flex justify-between content-start h-10 pl-3 items-center py-8"
-        *ngFor="let tariff of tariffDataDetails; even as even; index as i"
-        [style.background-color]="even ? 'rgba(243, 244, 246)' : ''"
-      >
-        <input
-          type="text"
-          class="rounded-3xl border-gray-300 border-solid border w-2/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8"
-          (change)="handleDataChange($event, 'zone', i)"
-          [value]="tariff.zone"
-        />
-        <input
-          type="text"
-          class="rounded-3xl border-gray-300 border-solid border w-2/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8"
-          (change)="handleDataChange($event, 'country', i)"
-          [value]="tariff.country"
-        />
-        <input
-          type="text"
-          class="rounded-3xl border-gray-300 border-solid border w-2/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8"
-          (change)="handleDataChange($event, 'network_operator', i)"
-          [value]="tariff.network_operator"
-        />
-        <input
-          type="text"
-          class="rounded-3xl border-gray-300 border-solid border w-2/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8"
-          (change)="handleDataChange($event, 'network_code', i)"
-          [value]="tariff.network_code"
-        />
-        <input
-          type="text"
-          class="rounded-3xl border-gray-300 border-solid border w-2/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 mr-2 h-8"
-          (change)="handleDataChange($event, 'increment_type', i)"
-          [value]="tariff.increment_type"
-        />
 
-        <button class="material-icons mr-4" (click)="removeItem(tariff)">
-          delete
-        </button>
+    <form [formGroup]="tariffForm" (ngSubmit)="submitTariffData()">
+      <div class="h-96 overflow-scroll" formArrayName="tariffItem">
+        <div
+          class="flex justify-between content-start h-10 pl-3 items-center py-8"
+          *ngFor="let tariff of TariffItem().controls; even as even; index as i"
+          [formGroupName]="i"
+          [style.background-color]="even ? 'rgba(243, 244, 246)' : ''"
+        >
+          <input
+            type="text"
+            class="rounded-3xl border-gray-300 border-solid border w-2/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8"
+            formControlName="zone"
+            [ngClass]="
+              tariff.get('zone')?.status === 'VALID'
+                ? 'border-success'
+                : 'border-danger'
+            "
+          />
+          <input
+            type="text"
+            class="rounded-3xl border-gray-300 border-solid border w-2/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8"
+            formControlName="country"
+            [ngClass]="
+              tariff.get('country')?.errors ? 'border-danger' : 'border-success'
+            "
+          />
+          <input
+            type="text"
+            class="rounded-3xl border-gray-300 border-solid border w-2/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8"
+            formControlName="network_operator"
+            [ngClass]="
+              tariff.get('network_operator')?.errors
+                ? 'border-danger'
+                : 'border-success'
+            "
+          />
+          <input
+            type="number"
+            class="rounded-3xl border-gray-300 border-solid border w-2/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8"
+            formControlName="network_code"
+            [ngClass]="
+              tariff.get('network_code')?.errors
+                ? 'border-danger'
+                : 'border-success'
+            "
+          />
+          <input
+            type="text"
+            class="rounded-3xl border-gray-300 border-solid border w-2/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 mr-2 h-8"
+            formControlName="increment_type"
+            [ngClass]="
+              tariff.get('increment_type')?.errors
+                ? 'border-danger'
+                : 'border-success'
+            "
+          />
+
+          <button class="material-icons mr-4" (click)="removeTariffItem(i)">
+            delete
+          </button>
+        </div>
       </div>
-    </div>
+
+      <button
+        class="rounded-3xl bg-gradient-to-r from-indigo-500 to-indigo-800 w-20 h-9 text-gray-200 text-sm mt-3 absolute right-8 mb-5"
+        type="submit"
+      >
+        Submit
+      </button>
+    </form>
+    <button
+      class="rounded-3xl bg-gradient-to-r from-indigo-500 to-indigo-800 w-20 h-9 text-gray-200 text-sm mt-3 absolute right-32 mb-5"
+      (click)="clearTariffForm()"
+    >
+      Cancel
+    </button>
   </div>
 </div>

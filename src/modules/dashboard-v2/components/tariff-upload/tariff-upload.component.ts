@@ -5,6 +5,7 @@ import { TariffDetails } from 'src/modules/dashboard-v2/models/tariff-details';
 import { TariffService } from 'src/modules/dashboard-v2/services/tariff.service';
 import { TariffMockDetails } from 'src/modules/dashboard-v2/models/tariff-mock-data';
 import { BehaviorSubject } from 'rxjs';
+import { ToastService } from 'src/modules/core/services/toast.service';
 
 //Type of the data sheet
 type AOA = TariffDetails[][];
@@ -14,13 +15,14 @@ type AOA = TariffDetails[][];
   templateUrl: './tariff-upload.component.html',
   styleUrls: ['./tariff-upload.component.scss'],
 })
-export class TariffUploadComponent implements OnInit {
+export class TariffUploadComponent {
   fileName: string = 'Drag file to Upload';
   sampleSheetLink = environment.sampleSheetLink;
 
-  constructor(private tariffService: TariffService) {}
-
-  ngOnInit(): void {}
+  constructor(
+    private tariffService: TariffService,
+    private toastService: ToastService
+  ) {}
 
   // Define the excel sheet data
   data: AOA = [[], []];
@@ -34,10 +36,14 @@ export class TariffUploadComponent implements OnInit {
   ];
 
   onFileChange(event: any) {
-    this.fileName = event.target.files[0].name;
-
     /* Intialize the file reader */
     const target: DataTransfer = <DataTransfer>event.target;
+
+    let networkZoneData: any;
+
+    this.tariffService.getNetworkOpData().subscribe((res) => {
+      networkZoneData = res.zone_details;
+    });
 
     if (target.files.length !== 1) throw new Error('Cannot use multiple files');
     const reader: FileReader = new FileReader();
@@ -55,7 +61,19 @@ export class TariffUploadComponent implements OnInit {
         header: this.sheetDataType,
         range: 1, // Remove the header part
       });
-      this.tariffService.updateData(this.data); // Update the data without header
+      if (this.data.length == 0) {
+        //Display a toast box to the user
+        this.toastService.openSnackBar('Please upload a valid sheet');
+      } else if (
+        (this.data && networkZoneData.length == 0) ||
+        networkZoneData.length == undefined
+      ) {
+        this.toastService.openSnackBar('Please enter the zone details');
+      } else {
+        this.fileName = event.target.files[0].name; //Update the file name in the fileDropdown box
+
+        this.tariffService.updateData(this.data); // Update the data without header
+      }
     };
     reader.readAsArrayBuffer(target.files[0]);
   }

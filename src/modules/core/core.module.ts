@@ -6,6 +6,7 @@ import { MaterialModule } from '../shared/modules/material/material.module';
 @NgModule({
   declarations: [],
   imports: [CommonModule, MaterialModule],
+  exports: [MaterialModule],
   providers: [HttpErrorHandlerService],
 })
 export class CoreModule {}
