@@ -6,6 +6,11 @@ import { NetworkOperatorComponent } from './components/network-operator/network-
 import { TariffUploadComponent } from './components/tariff-upload/tariff-upload.component';
 import { TariffDisplayUpdateComponent } from './components/tariff-display-update/tariff-display-update.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TariffAsyncValidator } from '../shared/formValidators/tariffAsyncValidator';
+import { CoreModule } from '../core/core.module';
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
+import { TariffConfirmDialogComponent } from './components/tariff-confirm-dialog/tariff-confirm-dialog.component';
+import { MaterialModule } from '../shared/modules/material/material.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +18,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     NetworkOperatorComponent,
     TariffUploadComponent,
     TariffDisplayUpdateComponent,
+    TariffConfirmDialogComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, DashboardV2Routing],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    DashboardV2Routing,
+    CoreModule,
+    RxReactiveFormsModule,
+  ],
+  providers: [TariffAsyncValidator],
 })
 export class DashboardV2Module {}

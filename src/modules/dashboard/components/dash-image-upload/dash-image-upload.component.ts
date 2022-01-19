@@ -52,9 +52,7 @@ export class DashImageUploadComponent implements OnInit {
             this.getProgress.emit(percentDone);
           }
         },
-        error: (err) => {
-          console.log(err);
-        },
+        error: (err) => {},
         complete: () => {
           this.dataService.setImage(this.imageUrl);
           this.getImage.emit(this.imageUrl);

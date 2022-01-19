@@ -1,10 +1,15 @@
-<form action="" [formGroup]="networkOperatorForm" (ngSubmit)="logData()">
+<form action="" [formGroup]="networkOperatorForm" (ngSubmit)="addNetworkData()">
   <p class="text-gray-800 font-medium opacity-80 mb-1">Network Operator Name</p>
   <input
     type="text"
     placeholder="Enter Network Operator Name"
     formControlName="network_operator"
     class="rounded-2xl border-gray-400 border-solid border w-3/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8 mb-4"
+    [ngClass]="
+      networkOperatorForm.get('network_operator')?.errors
+        ? 'border-danger'
+        : 'border-success'
+    "
   />
 
   <div class="flex" formGroupName="zone_details">
@@ -13,12 +18,22 @@
       placeholder="Enter Zone"
       formControlName="zoneName"
       class="rounded-2xl border-gray-400 border-solid border w-1/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8 mr-3"
+      [ngClass]="
+        networkOperatorForm.get('zone_details')?.get('zoneName')?.errors
+          ? 'border-danger'
+          : 'border-success'
+      "
     />
     <input
       type="number"
       placeholder="$0.00"
       formControlName="zonePrice"
       class="rounded-2xl border-gray-400 border-solid border w-1/12 placeholder:text-gray-800/6 placeholder:p-2 placeholder:text-sm placeholder:h-5 h-8 mr-3 pr-3"
+      [ngClass]="
+        networkOperatorForm.get('zone_details')?.get('zonePrice')?.errors
+          ? 'border-danger'
+          : 'border-success'
+      "
     />
 
     <button
@@ -49,11 +64,11 @@
     <p class="ml-28 grow font-medium text-gray-600">
       ${{ zoneValue.zonePrice | number: ".2-3" }}
     </p>
-    <p
+    <button
       class="flex-none material-icons self-end mr-5"
       (click)="deleteDataItem(zoneValue)"
     >
       delete
-    </p>
+    </button>
   </div>
 </div>
