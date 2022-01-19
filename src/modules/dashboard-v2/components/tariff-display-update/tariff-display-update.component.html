@@ -79,11 +79,6 @@
           </button>
         </div>
       </div>
-      <button
-        class="rounded-3xl bg-gradient-to-r from-indigo-500 to-indigo-800 w-20 h-9 text-gray-200 text-sm mt-3 absolute right-32 mb-5"
-      >
-        Cancel
-      </button>
 
       <button
         class="rounded-3xl bg-gradient-to-r from-indigo-500 to-indigo-800 w-20 h-9 text-gray-200 text-sm mt-3 absolute right-8 mb-5"
@@ -92,5 +87,11 @@
         Submit
       </button>
     </form>
+    <button
+      class="rounded-3xl bg-gradient-to-r from-indigo-500 to-indigo-800 w-20 h-9 text-gray-200 text-sm mt-3 absolute right-32 mb-5"
+      (click)="clearTariffForm()"
+    >
+      Cancel
+    </button>
   </div>
 </div>

@@ -112,6 +112,10 @@ export class TariffDisplayUpdateComponent implements OnInit {
     this.TariffItem().removeAt(index);
   }
 
+  clearTariffForm(): void {
+    this.TariffItem().clear();
+  }
+
   submitTariffData(): void {
     for (const tariff of this.TariffItem().controls) {
       //Manually Validate all the neccesary controls on submission
@@ -120,7 +124,7 @@ export class TariffDisplayUpdateComponent implements OnInit {
       tariff.get('increment_type')?.updateValueAndValidity();
     }
 
-    if (this.tariffForm.valid) {
+    if (this.tariffForm.valid && !(this.TariffItem().length == 0)) {
       console.log(this.tariffForm.value);
     }
   }
